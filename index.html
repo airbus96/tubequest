@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TubeQuest — London Station Tracker</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <h1>🚇 TubeQuest</h1>
+      <p class="tagline">Tick off every London Underground &amp; Overground station you've visited.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="progress-panel">
+      <div class="progress-summary">
+        <div class="progress-number" id="visited-count">0</div>
+        <div class="progress-label">of <span id="total-count">0</span> stations visited</div>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+      </div>
+      <button id="reset-btn" class="ghost-btn" title="Clear all visited stations">Reset progress</button>
+    </section>
+
+    <section class="search-panel">
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search for a station (e.g. Baker Street)…" autocomplete="off" />
+        <button id="clear-search" class="clear-btn" title="Clear search" hidden>&times;</button>
+      </div>
+      <ul id="search-results" class="search-results" hidden></ul>
+    </section>
+
+    <section class="filter-panel">
+      <div class="filter-group" id="mode-filters"></div>
+      <div class="filter-group">
+        <button class="chip" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" data-filter="visited">Visited</button>
+        <button class="chip" data-filter="unvisited">Not yet</button>
+      </div>
+    </section>
+
+    <section class="map-panel" id="map-panel">
+      <!-- line rails injected here -->
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Your progress is saved locally in this browser. Station data covers all Underground &amp; Overground lines, plus the DLR and Elizabeth line.</p>
+  </footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
