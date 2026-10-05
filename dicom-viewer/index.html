@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DICOM Viewer</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="filter-bar" role="search">
+    <div class="brand">DICOM Viewer</div>
+    <div class="filter-row">
+      <label class="field grow">
+        <span class="field-label">Search</span>
+        <input type="search" id="f-query" placeholder="Patient, MRN, accession, description or report text…" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span class="field-label">Modality</span>
+        <select id="f-modality"><option value="">All</option></select>
+      </label>
+      <label class="field">
+        <span class="field-label">Body part</span>
+        <select id="f-bodypart"><option value="">All</option></select>
+      </label>
+      <label class="field">
+        <span class="field-label">Status</span>
+        <select id="f-status"><option value="">All</option></select>
+      </label>
+      <label class="field">
+        <span class="field-label">Priority</span>
+        <select id="f-priority"><option value="">All</option></select>
+      </label>
+      <label class="field">
+        <span class="field-label">From</span>
+        <input type="date" id="f-from" />
+      </label>
+      <label class="field">
+        <span class="field-label">To</span>
+        <input type="date" id="f-to" />
+      </label>
+      <div class="filter-actions">
+        <button id="f-clear" class="btn ghost" type="button">Clear</button>
+        <label class="btn primary file-btn" title="Open uncompressed DICOM files from your computer">
+          Open DICOM…
+          <input type="file" id="file-input" multiple accept=".dcm,application/dicom,*/*" hidden />
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel worklist" aria-label="Studies">
+      <div class="panel-head">
+        <h2>Studies</h2>
+        <span class="count" id="result-count"></span>
+      </div>
+      <ul id="study-list" class="study-list"></ul>
+    </aside>
+
+    <section class="viewer" aria-label="Image viewer">
+      <div class="toolbar">
+        <div class="tool-group" role="group" aria-label="Mouse tool">
+          <button class="tool" data-tool="wl" aria-pressed="true" title="Window / level (drag)">W/L</button>
+          <button class="tool" data-tool="pan" title="Pan (drag)">Pan</button>
+          <button class="tool" data-tool="zoom" title="Zoom (drag up/down)">Zoom</button>
+          <button class="tool" data-tool="scroll" title="Scroll slices (drag)">Scroll</button>
+        </div>
+        <select id="preset" title="Window presets"></select>
+        <div class="tool-group">
+          <button class="tool" id="btn-invert" title="Invert (I)">Invert</button>
+          <button class="tool" id="btn-cine" title="Play / pause cine (Space)">Play</button>
+          <button class="tool" id="btn-reset" title="Reset view (R)">Reset</button>
+        </div>
+      </div>
+      <div class="stage" id="stage">
+        <canvas id="canvas"></canvas>
+        <div class="overlay tl" id="ov-tl"></div>
+        <div class="overlay tr" id="ov-tr"></div>
+        <div class="overlay bl" id="ov-bl"></div>
+        <div class="overlay br" id="ov-br"></div>
+        <div class="stage-empty" id="stage-empty">Select a study, or drop DICOM files here</div>
+        <div class="stage-error" id="stage-error" hidden></div>
+      </div>
+      <div class="slice-bar">
+        <input type="range" id="slice" min="0" max="0" value="0" aria-label="Slice" />
+        <span id="slice-label">–</span>
+      </div>
+    </section>
+
+    <aside class="panel report" aria-label="Report">
+      <div class="panel-head">
+        <h2>Report</h2>
+        <span class="count" id="report-count"></span>
+      </div>
+      <div class="report-search">
+        <input type="search" id="report-query" placeholder="Find in report…" autocomplete="off" />
+      </div>
+      <div id="report-body" class="report-body"></div>
+    </aside>
+  </main>
+
+<script src="data.js"></script>
+<script src="dicom.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
